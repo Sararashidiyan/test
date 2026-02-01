@@ -4,11 +4,11 @@ WORKDIR /src
 
 # Copy csproj and restore dependencies
 COPY . .
-RUN dotnet restore
+RUN dotnet restore docker.csproj
 
 # Copy everything else and build
 COPY . .
-RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish docker.csproj -c Release -o /app/publish /p:UseAppHost=false
 
 
 # -------- RUNTIME STAGE --------
