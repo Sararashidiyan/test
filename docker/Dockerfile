@@ -5,9 +5,6 @@ WORKDIR /src
 # Copy csproj and restore dependencies
 COPY . .
 RUN dotnet restore docker.csproj
-
-# Copy everything else and build
-COPY . .
 RUN dotnet publish docker.csproj -c Release -o /app/publish /p:UseAppHost=false
 
 
@@ -23,3 +20,4 @@ EXPOSE 8080
 
 # Start the app
 ENTRYPOINT ["dotnet", "docker.dll"]
+
