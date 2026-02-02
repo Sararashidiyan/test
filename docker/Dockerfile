@@ -5,14 +5,14 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy csproj and restore dependencies
-COPY *.csproj ./
-RUN dotnet restore
+COPY docker/docker.csproj docker/ 
+RUN dotnet restore docker/docker.csproj
 
 # Copy the rest of the project files
 COPY . ./
 
 # Build the project
-RUN dotnet publish -c Release -o /app/publish
+RUN dotnet publish docker/docker.csproj -c Release -o /app/publish
 
 # ============================
 # 2) Runtime stage
