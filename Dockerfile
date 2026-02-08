@@ -27,4 +27,4 @@ COPY --from=build /app/publish .
 EXPOSE 8080
 
 # Start the application
-ENTRYPOINT ["dotnet", "MyApp.dll"]
+ENTRYPOINT ["dotnet", "docker.dll"]
