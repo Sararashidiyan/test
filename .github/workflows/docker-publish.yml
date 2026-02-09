@@ -22,7 +22,7 @@ jobs:
       - name: Log in to Registry
         uses: docker/login-action@v3
         with:
-          registry: http://docker-hosted.dapa.ir:8084/
+          registry: docker-hosted.dapa.ir
           username: admin
           password: ${{ secrets.DOCKER_PASSWORD }}
 
