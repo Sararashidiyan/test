@@ -25,12 +25,20 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # 2. Checkout code
+      - name: Extract version
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
       # 3. Build Docker image
       - name: Build image
         run: |
-          docker build -t ghcr.io/sararashidiyan/my-image:latest .
+          docker build -t ghcr.io/sararashidiyan/my-image:${{ steps.version.outputs.VERSION }} \
+          docker build -t ghcr.io/sararashidiyan/my-image:latest \
+          .
 
       # 4. Push Docker image
       - name: Push image
         run: |
+          docker push ghcr.io/sararashidiyan/my-image:${{ steps.version.outputs.VERSION }}
           docker push ghcr.io/sararashidiyan/my-image:latest
