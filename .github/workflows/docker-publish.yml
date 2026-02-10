@@ -18,18 +18,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 2.Log in to GitHub Container Registry 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      # 2. Checkout code
-      - name: Extract version
-        id: version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-
+     
       # 3. Build Docker image
       - name: Build image
         run: |
@@ -40,5 +36,6 @@ jobs:
       # 4. Push Docker image
       - name: Push image
         run: |
+          VERSION=${{ github.run_number }}
           docker push ghcr.io/sararashidiyan/my-image:$VERSION
           docker push ghcr.io/sararashidiyan/my-image:latest
