@@ -25,17 +25,19 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      # 3. Set version
+      - name: Set version
+        run: echo "VERSION=${{ github.run_number }}" >> $GITHUB_ENV
      
-      # 3. Build Docker image
+      # 4. Build Docker image
       - name: Build image
         run: |
-          VERSION=${{ github.run_number }}
           docker build -t ghcr.io/sararashidiyan/my-image:$VERSION .
           docker build -t ghcr.io/sararashidiyan/my-image:latest .
 
-      # 4. Push Docker image
+      # 5. Push Docker image
       - name: Push image
         run: |
-          VERSION=${{ github.run_number }}
           docker push ghcr.io/sararashidiyan/my-image:$VERSION
           docker push ghcr.io/sararashidiyan/my-image:latest
