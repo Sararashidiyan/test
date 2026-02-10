@@ -33,11 +33,12 @@ jobs:
       # 3. Build Docker image
       - name: Build image
         run: |
-          docker build -t ghcr.io/sararashidiyan/my-image:${{ steps.version.outputs.VERSION }} .
+          VERSION=${{ github.run_number }}
+          docker build -t ghcr.io/sararashidiyan/my-image:$VERSION .
           docker build -t ghcr.io/sararashidiyan/my-image:latest .
 
       # 4. Push Docker image
       - name: Push image
         run: |
-          docker push ghcr.io/sararashidiyan/my-image:${{ steps.version.outputs.VERSION }}
+          docker push ghcr.io/sararashidiyan/my-image:$VERSION
           docker push ghcr.io/sararashidiyan/my-image:latest
